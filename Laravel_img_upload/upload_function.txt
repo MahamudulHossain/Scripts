@@ -1,0 +1,12 @@
+public function store(Request $req){
+    	$req->validate([
+    	    		'image' => 'required|mimes:jpeg,png,jpg|max:2048',
+    	    	]);
+    	if($req->hasfile('image')){
+    		$file = $req->file('image');
+    		$ext = strtolower($file->getClientOriginalExtension());
+    		$filename = time().'.'.$ext;
+    		$file->move('upload/images',$filename);
+    		return back()->with('success','You have successfully upload image.');
+    	}
+    }
